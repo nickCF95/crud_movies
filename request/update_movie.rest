@@ -1,0 +1,10 @@
+PUT http://localhost:3001/api/movies/60c9d51338dc3c37a0b7a7bb
+Content-Type: application/json
+
+{
+    "name" : "IT 2",
+    "director" : "Andrés Muschietti",
+    "category" :  {
+        "categoryName": "Thriller"
+    }
+}

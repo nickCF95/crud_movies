@@ -1,0 +1,6 @@
+PUT http://localhost:3001/api/categories/70c9694807379748a41e73b0
+Content-Type: application/json
+
+{
+    "categoryName" : "Warlike"
+}

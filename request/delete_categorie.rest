@@ -1,0 +1,1 @@
+DELETE http://localhost:3001/api/categories/60c9054fcde37539745f4ca1

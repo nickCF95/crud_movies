@@ -1,0 +1,15 @@
+POST  http://localhost:3001/api/categories
+Content-Type: application/json
+
+{
+    "categoryName" : "Warlike - Drama"
+}
+
+###
+
+POST  http://localhost:3001/api/categories
+Content-Type: application/json
+
+{
+    "categoryName" : "Horror"
+}

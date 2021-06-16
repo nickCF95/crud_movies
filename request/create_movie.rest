@@ -1,0 +1,34 @@
+POST  http://localhost:3001/api/movies
+Content-Type: application/json
+
+{
+    "name" : "The darkest hours",
+    "director" : "Joe Wrigth",
+    "category" : "60c96fe507379748a41e73b5"
+}
+
+###
+
+POST  http://localhost:3001/api/movies
+Content-Type: application/json
+
+{
+    "name" : "IT: Primera parte",
+    "director" : "Andy Muschietti",
+    "category" : "60c9707d07379748a41e73b7"
+}
+
+###
+
+POST  http://localhost:3001/api/movies
+Content-Type: application/json
+
+{
+    "name" : "Interstellar",
+    "director" : "Christopher Nolan",
+    "category" : {
+                    "id":"60c9707d07379748a41e73b7",
+                    "categoryName": "Science - Fiction"
+                 }
+
+}
