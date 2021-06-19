@@ -1,5 +1,6 @@
 require('dotenv').config()
 require('./mongo')
+const ObjectId  = require('mongodb').ObjectId;
 const express = require('express')
 const app = express()
 const cors = require('cors')
@@ -23,23 +24,31 @@ app.get('/api/categories', (request, response) => {
     response.json(categories)
   })
 })
-app.get('/api/movies/:id', (request, response) => {
+app.get('/api/movies/:id', (request, response, next) => {
   const { id } = request.params
   Movie.findById(id).populate('category', 'categoryName -_id').then(movie => {
-      if(movie){
-        return response.json(movie)
-      }else{
-          response.status(404).end()
-      }
+    if(movie){
+      return response.json(movie)
+    }else{
+      const err = {
+        name: 'NullError',
+        msg: 'The searched movie does not exist'
+      };
+      next(err)
+    }
   }).catch(err => next(err))
 })
-app.get('/api/categories/:id', (request, response) => {
+app.get('/api/categories/:id', (request, response, next) => {
     const { id } = request.params
     Category.findById(id).then(category => {
         if(category){
           return response.json(category)
         }else{
-            response.status(404).end()
+          const err = {
+            name: 'NullError',
+            msg: 'The searched category does not exist'
+          };
+          next(err)
         }
     }).catch(err => next(err))
   })
@@ -59,16 +68,27 @@ app.put('/api/movies/:id', (request, response, next) => {
     Movie.findById(id).then( movie => {
       movie.name = newMovieInfo.name ?? movie.name;
       movie.director = newMovieInfo.director ?? movie.director;
-      if (newMovieInfo.category && newMovieInfo.category.categoryName){
-        Category.findOne({categoryName:newMovieInfo.category.categoryName}).then(category => {
+      movie.category = newMovieInfo.category.id ?? movie.category;      
+      if (newMovieInfo.category.categoryName && !newMovieInfo.category.id){
+        Category.findOne({categoryName:newMovieInfo.category.categoryName}).then(category => {  
           if(category){
-            movie.category = category._id;
-          }
-          movie.save().then(result => {
-            response.json(result);
-          })
+            movie.category = category._id; 
+            movie.save().then(result => {
+              response.json(result);
+            })           
+          }else{
+            const err = {
+              name: 'NullError',
+              msg: 'The category that you want to set does not exist'
+            };
+            next(err);
+          }          
+        })      
+      }else{
+        movie.save().then(result => {
+          response.json(result);
         })
-      }
+      }       
     }).catch(err => next(err))
   })
 app.put('/api/categories/:id', (request, response, next) => {
@@ -90,40 +110,66 @@ app.delete('/api/movies/:id', (request, response, next) => {
 })
 app.delete('/api/categories/:id', (request, response, next) => {
     const { id } = request.params
-    Category.findByIdAndDelete(id).then( () => {
-      response.status(204).end()
+    Category.findById(id).then( resCategory => {
+      if(resCategory){
+        const condition = new ObjectId(resCategory._id);
+        Movie.find({category: condition}).then( movie => {
+          if (!movie){
+            Category.findByIdAndDelete(resCategory.id).then( () => {
+              response.status(204).end();
+            }).catch(err => next(err))
+          }else{
+            const error = {
+              name: 'ConflictError' ,
+              msg: `There are movies associated to category: ${resCategory.categoryName}`
+            };
+            next(error);          
+          }
+        })
+      }else{
+        const err = {
+          name: 'NullError',
+          msg: 'The category you want to delete does not exist'
+        };
+        next(err);
+      }      
     }).catch(err => next(err))
   })
-app.post('/api/movies', (request, response) => {
-  const movie = request.body
-  console.log(movie)
+app.post('/api/movies', (request, response, next) => {
+  const movie = request.body;
   if (!movie || !movie.name || !movie.director || !movie.category) {
-    return response.status(400).json({
-      error: 'some field of movie is missing'
-    })}
-  const newMovie = new Movie({
-    name: movie.name,
-    director: movie.director,
-    category: movie.category.id
-  })
-  newMovie.save().then(savedMovie => {
-      response.json(savedMovie)
-  })
+      const error = {
+        name: 'MissingFieldsError',
+        msg: 'Some field/s of movie object is missing'
+      };
+      next(error);
+  }else{
+    const newMovie = new Movie({
+      name: movie.name,
+      director: movie.director,
+      category: movie.category.id
+    });
+    newMovie.save().then(savedMovie => {
+        response.json(savedMovie)
+    })
+  }
 })
 app.post('/api/categories', (request, response) => {
     const category = request.body
-    console.log(category)
     if (!category.categoryName) {
-      return response.status(400).json({
-        error: 'Name of category is missing'
-      })
-    }
-    const newCategory = new Category({
-      categoryName: category.categoryName
-    })
-    newCategory.save().then(savedCategory => {
-        response.json(savedCategory)
-    })
+      const error = {
+        name: 'MissingFieldsError',
+        msg: 'Name of category is missing'
+      };
+      next(error);
+    }else{
+      const newCategory = new Category({
+        categoryName: category.categoryName
+      });
+      newCategory.save().then(savedCategory => {
+          response.json(savedCategory)
+      });
+    }    
   })
 app.use(notFound)
 app.use(errorHandler)

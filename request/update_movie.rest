@@ -1,10 +1,85 @@
-PUT http://localhost:3001/api/movies/60c9d51338dc3c37a0b7a7bb
+PUT http://localhost:3001/api/movies/60cc04bbf3a96804a411c8f5
 Content-Type: application/json
 
 {
-    "name" : "IT 2",
-    "director" : "Andrés Muschietti",
-    "category" :  {
-        "categoryName": "Thriller"
+    "name": "Batman: The Dark Knight",
+    "director": "",
+    "category": {
+      "categoryName": ""
+    }
+}
+
+###
+PUT http://localhost:3001/api/movies/60cc04bbf3a96804a411c8f5
+Content-Type: application/json
+
+{
+    "name": "",
+    "director": "Christopher Edward Nolan",
+    "category": {
+      "categoryName": ""
+    }
+}
+
+###
+PUT http://localhost:3001/api/movies/60cc04bbf3a96804a411c8f5
+Content-Type: application/json
+
+{
+    "name": "",
+    "director": "",
+    "category": {
+      "categoryName": "Drama"
+    }
+}
+
+###
+PUT http://localhost:3001/api/movies/60cc04bbf3a96804a411c8f5
+Content-Type: application/json
+
+{
+    "name": "",
+    "director": "",
+    "category": {
+      "categoryName": ""
+    }
+}
+
+###
+
+PUT http://localhost:3001/api/movies/60cc04bbf3a96804a411c8f5
+Content-Type: application/json
+
+{
+    "name": "Batman: The Dark Knight Rises",
+    "director": "Christopher Nolan",
+    "category": {
+      "categoryName": "Science - Fiction"
+    }
+}
+
+###
+
+PUT http://localhost:3001/api/movies/60cc04bbf3a96804a411c8f5
+Content-Type: application/json
+
+{
+    "name": "Batman: The Dark Knight",
+    "director": "Christopher Edward Nolan",
+    "category": {
+      "categoryName": "Drama"
+    }
+}
+
+###
+
+PUT http://localhost:3001/api/movies/60cc04bbf3a96804a411c8f5
+Content-Type: application/json
+
+{
+    "name": "",
+    "director": "",
+    "category": {
+      "categoryName": "Dramamine"
     }
 }

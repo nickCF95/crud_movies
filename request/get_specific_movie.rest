@@ -1,5 +1,5 @@
-GET http://localhost:3001/api/movies/1
+GET http://localhost:3001/api/movies/60cb9b34c98a4d00156bf93f
 ###
 GET http://localhost:3001/api/movies/2
 ###
-GET http://localhost:3001/api/movies/3
+GET http://localhost:3001/api/movies/60cb9b34c98a4d00156bf94f

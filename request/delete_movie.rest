@@ -1,1 +1,1 @@
-DELETE http://localhost:3001/api/movies/60c906141124ec3084f814dd
+DELETE http://localhost:3001/api/movies/60cbb692342f170aa8b8490a

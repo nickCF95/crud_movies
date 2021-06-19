@@ -4,7 +4,10 @@ Content-Type: application/json
 {
     "name" : "The darkest hours",
     "director" : "Joe Wrigth",
-    "category" : "60c96fe507379748a41e73b5"
+    "category" : {
+                    "id": "60c99ad507379748a41e73c2",
+                    "categoryName": "Science - Fiction"
+                 }
 }
 
 ###
@@ -15,7 +18,22 @@ Content-Type: application/json
 {
     "name" : "IT: Primera parte",
     "director" : "Andy Muschietti",
-    "category" : "60c9707d07379748a41e73b7"
+    "category" : {
+                    "id": "60c9c82738dc3c37a0b7a7b2",
+                    "categoryName": "Science - Fiction"
+                 }
+}
+
+###
+POST  http://localhost:3001/api/movies
+Content-Type: application/json
+
+{
+    "name" : "IT: Primera parte",
+    "category" : {
+                    "id": "60c9c82738dc3c37a0b7a7b2",
+                    "categoryName": "Science - Fiction"
+                 }
 }
 
 ###
@@ -24,10 +42,21 @@ POST  http://localhost:3001/api/movies
 Content-Type: application/json
 
 {
+    "director" : "Andy Muschietti",
+    "category" : {
+                    "id": "60c9c82738dc3c37a0b7a7b2",
+                    "categoryName": "Science - Fiction"
+                 }
+}
+###
+POST  http://localhost:3001/api/movies
+Content-Type: application/json
+
+{
     "name" : "Interstellar",
     "director" : "Christopher Nolan",
     "category" : {
-                    "id":"60c9707d07379748a41e73b7",
+                    "id":"60cbb9c8b5f60a39d87eacfc",
                     "categoryName": "Science - Fiction"
                  }
 
