@@ -1,4 +1,4 @@
-DELETE http://localhost:3001/api/categories/60c99ad507379748a41e73c2
+DELETE http://localhost:3001/api/categories/60cacbea962d400015f8f627
 
 ###
 
@@ -6,7 +6,7 @@ DELETE http://localhost:3001/api/categories/5
 
 ###
 
-DELETE http://localhost:3001/api/categories/60cc04adf3a96804a411c8f4
+DELETE http://localhost:3001/api/categories/60cacbea962d400015f8f629
 ###
 
-DELETE http://localhost:3001/api/categories/60cbb841b5f60a39d88eacfa
+DELETE http://localhost:3001/api/categories/60cd4cc4b5f60b0015078fc5

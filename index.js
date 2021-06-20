@@ -113,8 +113,9 @@ app.delete('/api/categories/:id', (request, response, next) => {
     Category.findById(id).then( resCategory => {
       if(resCategory){
         const condition = new ObjectId(resCategory._id);
-        Movie.find({category: condition}).then( movie => {
-          if (!movie){
+        Movie.find({category: condition}).then( moviesArray => {
+          if (moviesArray.length === 0){
+            console.log('Entré')
             Category.findByIdAndDelete(resCategory.id).then( () => {
               response.status(204).end();
             }).catch(err => next(err))
